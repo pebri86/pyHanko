@@ -1863,13 +1863,17 @@ class SignatureFormField(generic.DictionaryObject):
             while '/Parent' in pagetree_obj and ('/Type' not in pagetree_obj or pagetree_obj['/Type'] != '/Page'):
                 pagetree_obj = pagetree_obj['/Parent']
             if '/Rotate' in pagetree_obj:
-                if pagetree_obj['/Rotate'] == 90:
+                print(f"has rotate {pagetree_obj['/Rotate']}")
+                if pagetree_obj['/Rotate'] == 90:                    
+                    print("has rotate 90")
                     #This only rotates it around the top left corner of the box
                     #Goal is to make it stay on the same coordinates, no matter if its portrait or landscape
                     rect = [generic.FloatObject(rect[0]), generic.FloatObject(rect[1]), generic.FloatObject((rect[3] - rect[1]) * -1 + rect[0]), generic.FloatObject(rect[2] - rect[0] + rect[1])]
                 elif pagetree_obj['/Rotate'] == 180:
+                    print("has rotate 180")
                     rect = rect # TODO
                 elif pagetree_obj['/Rotate'] == 270:
+                    print("has rotate 270")
                     rect = rect # TODO
         annot_dict['/Rect'] = generic.ArrayObject(rect)
 
