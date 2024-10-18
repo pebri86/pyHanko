@@ -166,6 +166,12 @@ class PdfContent:
     """
 
     writer = None
+    """    
+    
+    Transformation Matrix that would rotate the content
+    """
+
+    matrix = None
     """
     The :meth:`__init__` method comes with an optional ``writer`` 
     parameter that can be used to let subclasses register external resources 
@@ -179,10 +185,12 @@ class PdfContent:
         resources: Optional[PdfResources] = None,
         box: Optional[BoxConstraints] = None,
         writer: Optional[BasePdfFileWriter] = None,
+        matrix: Optional[DictionaryObject] = None
     ):
         self._resources: PdfResources = resources or PdfResources()
         self.box: BoxConstraints = box or BoxConstraints()
         self.writer = writer
+        self.matrix = matrix
 
     @property
     def _ensure_writer(self) -> BasePdfFileWriter:
@@ -304,8 +312,9 @@ class RawContent(PdfContent):
         data: bytes,
         resources: Optional[PdfResources] = None,
         box: Optional[BoxConstraints] = None,
+        matrix: Optional[DictionaryObject] = None
     ):
-        super().__init__(resources, box)
+        super().__init__(resources, box, matrix=matrix)
         self.data = data
 
     def render(self) -> bytes:
