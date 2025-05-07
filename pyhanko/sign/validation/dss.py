@@ -342,9 +342,12 @@ class DocumentSecurityStore:
         crl_refs = get_and_apply(dss_dict, '/CRLs', list, default=[])
         crls = []
         for crl_ref in crl_refs:
-            crl_stream: generic.StreamObject = crl_ref.get_object()
-            crl = asn1_crl.CertificateList.load(crl_stream.data)
-            crls.append(crl)
+            try:
+                crl_stream: generic.StreamObject = crl_ref.get_object()
+                crl = asn1_crl.CertificateList.load(crl_stream.data)
+                crls.append(crl)
+            except ValueError as err:
+                pass
 
         # shallow-copy the VRI dictionary
         try:
