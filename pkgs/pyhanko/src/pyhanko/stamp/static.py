@@ -48,8 +48,9 @@ class StaticStampStyle(BaseStampStyle):
         writer: BasePdfFileWriter,
         box: layout.BoxConstraints,
         text_params: dict,
+        rotate: int,
     ) -> 'StaticContentStamp':
-        return StaticContentStamp(writer=writer, style=self, box=box)
+        return StaticContentStamp(writer=writer, style=self, box=box, rotate=rotate)
 
 
 class StaticContentStamp(BaseStamp):
@@ -60,12 +61,13 @@ class StaticContentStamp(BaseStamp):
         writer: BasePdfFileWriter,
         style: StaticStampStyle,
         box: layout.BoxConstraints,
+        rotate: int,
     ):
         if not (box and box.height_defined and box.width_defined):
             raise layout.LayoutError(
                 "StaticContentStamp requires a predetermined bounding box."
             )
-        super().__init__(box=box, style=style, writer=writer)
+        super().__init__(box=box, style=style, writer=writer, rotate=rotate)
 
     def _render_inner_content(self):
         return []

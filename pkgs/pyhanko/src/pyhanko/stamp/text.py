@@ -57,9 +57,10 @@ class TextStampStyle(BaseStampStyle):
         writer: BasePdfFileWriter,
         box: layout.BoxConstraints,
         text_params: dict,
+        rotate: int,
     ) -> 'TextStamp':
         return TextStamp(
-            writer=writer, style=self, box=box, text_params=text_params
+            writer=writer, style=self, box=box, text_params=text_params, rotate=rotate,
         )
 
 
@@ -75,6 +76,7 @@ class TextStamp(BaseStamp):
         style,
         text_params=None,
         box: Optional[layout.BoxConstraints] = None,
+        rotate: Optional[int] = 0,
     ):
         super().__init__(box=box, style=style, writer=writer)
         self.text_params = text_params

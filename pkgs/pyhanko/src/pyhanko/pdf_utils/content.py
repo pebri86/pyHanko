@@ -174,15 +174,22 @@ class PdfContent:
     It can also be set after the fact by calling :meth:`set_writer`.
     """
 
+    matrix = None
+    """
+    Transformation Matrix that would rotate the content
+    """
+
     def __init__(
         self,
         resources: Optional[PdfResources] = None,
         box: Optional[BoxConstraints] = None,
         writer: Optional[BasePdfFileWriter] = None,
+        matrix: Optional[DictionaryObject] = None
     ):
         self._resources: PdfResources = resources or PdfResources()
         self.box: BoxConstraints = box or BoxConstraints()
         self.writer = writer
+        self.matrix = matrix
 
     @property
     def _ensure_writer(self) -> BasePdfFileWriter:
@@ -254,6 +261,7 @@ class PdfContent:
             box_width=self.box.width,
             box_height=self.box.height,
             resources=self._resources.as_pdf_object(),
+            matrix=self.matrix,
         )
 
     def set_writer(self, writer):
@@ -304,8 +312,9 @@ class RawContent(PdfContent):
         data: bytes,
         resources: Optional[PdfResources] = None,
         box: Optional[BoxConstraints] = None,
+        matrix: Optional[DictionaryObject] = None
     ):
-        super().__init__(resources, box)
+        super().__init__(resources, box, matrix=matrix)
         self.data = data
 
     def render(self) -> bytes:

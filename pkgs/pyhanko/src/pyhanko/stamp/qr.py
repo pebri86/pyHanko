@@ -134,6 +134,7 @@ class QRStampStyle(TextStampStyle):
         writer: BasePdfFileWriter,
         box: layout.BoxConstraints,
         text_params: dict,
+        rotate = int,
     ) -> 'QRStamp':
         # extract the URL parameter
         try:
@@ -143,7 +144,7 @@ class QRStampStyle(TextStampStyle):
                 "Using a QR stamp style requires a 'url' text parameter."
             )
         return QRStamp(
-            writer, style=self, url=url, text_params=text_params, box=box
+            writer, style=self, url=url, text_params=text_params, box=box, rotate=rotate
         )
 
 
@@ -155,8 +156,9 @@ class QRStamp(TextStamp):
         style: QRStampStyle,
         text_params=None,
         box: Optional[layout.BoxConstraints] = None,
+        rotate: Optional[int] = 0
     ):
-        super().__init__(writer, style, text_params=text_params, box=box)
+        super().__init__(writer, style, text_params=text_params, box=box, rotate=rotate)
         self.url = url
         self._qr_size = None
 

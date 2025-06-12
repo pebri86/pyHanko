@@ -94,6 +94,7 @@ class BaseStampStyle(ConfigurableMixin):
         writer: BasePdfFileWriter,
         box: layout.BoxConstraints,
         text_params: dict,
+        rotate: int,
     ) -> 'BaseStamp':
         raise NotImplementedError
 
@@ -104,11 +105,18 @@ class BaseStamp(content.PdfContent):
         writer: BasePdfFileWriter,
         style,
         box: Optional[layout.BoxConstraints] = None,
+        rotate: Optional[int] = 0,
     ):
         super().__init__(box=box, writer=writer)
         self.style = style
         self._resources_ready = False
         self._stamp_ref: Optional[IndirectObject] = None
+        if rotate == 90:
+            self.matrix = [0.0, 1.0, -1.0, 0.0, 0.0, 0.0]
+        elif rotate == 180:
+            self.matrix = [-1.0, 0.0, 0.0, -1.0, 0.0, 0.0]
+        elif rotate == 270:
+            self.matrix = [0.0, -1.0, 1.0, 0.0, 0.0, 0.0]
 
     def _render_background(self):
         bg = self.style.background
