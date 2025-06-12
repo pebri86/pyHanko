@@ -84,5 +84,5 @@ common-test-utils = { workspace = true }
 integration-tests = { workspace = true }
 
 [tool.setuptools]
-packages = ["pkgs/pyhanko"]
+packages = ["pkgs"]
 
