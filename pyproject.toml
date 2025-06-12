@@ -84,5 +84,5 @@ common-test-utils = { workspace = true }
 integration-tests = { workspace = true }
 
 [tool.setuptools]
-py-modules = ["pyhanko"]
+packages = ["pyhanko"]
 
