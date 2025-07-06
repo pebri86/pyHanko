@@ -6,6 +6,31 @@ Release history
 pyHanko
 -------
 
+.. _release-0.29.1:
+
+0.29.1
+======
+
+*Release date:* 2025-06-20
+
+
+Dependency changes
+------------------
+
+ * Bump ``python-pkcs11`` to ``0.8.0``.
+ * Relax ``aiohttp`` upper bound to allow ``3.12.x`` and make
+   sure we test against the most recent version.
+
+
+Bugs fixed
+----------
+
+ * Correct buggy behaviour when reauthenticating with a security handler.
+ * Fix registration of multiple extensions in encrypted files.
+ * Tolerate key usage violations when the signer is a trust anchor.
+ * Remove unnecessary 3.8 compatibility code.
+ * Make it easier to customise PKCS#11 queries
+
 
 .. _release-0.29.0:
 
@@ -2285,14 +2310,20 @@ pyhanko-cli
 -----------
 
 
-.. _cli-release-0.1.0:
+.. _cli-release-0.1.2:
 
-0.1.0
+0.1.2
 =====
 
-*Release date:* 2025-05-27
+*Release date:* 2025-06-20
 
-Initial release split off from main pyHanko distribution artifact.
+
+New features and enhancements
+-----------------------------
+
+ * Auto-open document when validating an encrypted document using the CLI
+   and there is no user password.
+ * Support ``--text-param`` argument for stamps.
 
 
 .. _cli-release-0.1.1:
@@ -2307,3 +2338,12 @@ Dependency changes
 ------------------
 
  * Remove upper bound on ``click`` (excluding version ``8.2.0`` as incompatible)
+
+.. _cli-release-0.1.0:
+
+0.1.0
+=====
+
+*Release date:* 2025-05-27
+
+Initial release split off from main pyHanko distribution artifact.
