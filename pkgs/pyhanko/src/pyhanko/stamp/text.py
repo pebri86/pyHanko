@@ -78,7 +78,7 @@ class TextStamp(BaseStamp):
         box: Optional[layout.BoxConstraints] = None,
         rotate: Optional[int] = 0,
     ):
-        super().__init__(box=box, style=style, writer=writer)
+        super().__init__(box=box, style=style, writer=writer, rotate=rotate)
         self.text_params = text_params
 
         self.text_box: Optional[TextBox] = None
