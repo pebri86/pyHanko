@@ -335,16 +335,22 @@ class DocumentSecurityStore:
         ocsp_refs = get_and_apply(dss_dict, '/OCSPs', list, default=[])
         ocsps = []
         for ocsp_ref in ocsp_refs:
-            ocsp_stream: generic.StreamObject = ocsp_ref.get_object()
-            resp = asn1_ocsp.OCSPResponse.load(ocsp_stream.data)
-            ocsps.append(resp)
+            try:
+                ocsp_stream: generic.StreamObject = ocsp_ref.get_object()
+                resp = asn1_ocsp.OCSPResponse.load(ocsp_stream.data)
+                ocsps.append(resp)
+            except ValueError as err:
+                pass
 
         crl_refs = get_and_apply(dss_dict, '/CRLs', list, default=[])
         crls = []
         for crl_ref in crl_refs:
-            crl_stream: generic.StreamObject = crl_ref.get_object()
-            crl = asn1_crl.CertificateList.load(crl_stream.data)
-            crls.append(crl)
+            try:
+                crl_stream: generic.StreamObject = crl_ref.get_object()
+                crl = asn1_crl.CertificateList.load(crl_stream.data)
+                crls.append(crl)
+            except ValueError as err:
+                pass
 
         # shallow-copy the VRI dictionary
         try:
