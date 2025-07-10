@@ -1747,11 +1747,11 @@ def append_signature_field(
         obj = pagetree_obj.get('/Rotate', 0)
         rotation = obj if isinstance(obj, int) else obj.get_object()
         if rotation == 90:
-            matrix = [0.0, 1.0, -1.0, 0.0, h, 0.0]
+            matrix = [0.0, 1.0, -1.0, 0.0, 0.0, 0.0]
         elif rotation == 180:
-            matrix = [-1.0, 0.0, 0.0, -1.0, w, h]
+            matrix = [-1.0, 0.0, 0.0, -1.0, 0.0, 0.0]
         elif rotation == 270:
-            matrix = [0.0, -1.0, 1.0, 0.0, 0.0, w]
+            matrix = [0.0, -1.0, 1.0, 0.0, 0.0, 0.0]
         if w and h:
             sig_field[pdf_name('/AP')] = ap_dict = generic.DictionaryObject()
             if sig_field_spec.empty_field_appearance:

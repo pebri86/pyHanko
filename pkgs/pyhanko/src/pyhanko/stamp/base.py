@@ -112,11 +112,11 @@ class BaseStamp(content.PdfContent):
         self._resources_ready = False
         self._stamp_ref: Optional[IndirectObject] = None
         if rotate == 90:
-            self.matrix = [0.0, 1.0, -1.0, 0.0, box.height, 0.0]
+            self.matrix = [0.0, 1.0, -1.0, 0.0, 0.0, 0.0]
         elif rotate == 180:
-            self.matrix = [-1.0, 0.0, 0.0, -1.0, box.width, box.height]
+            self.matrix = [-1.0, 0.0, 0.0, -1.0, 0.0, 0.0]
         elif rotate == 270:
-            self.matrix = [0.0, -1.0, 1.0, 0.0, 0.0, box.width]
+            self.matrix = [0.0, -1.0, 1.0, 0.0, 0.0, 0.0]
 
     def _render_background(self):
         bg = self.style.background
